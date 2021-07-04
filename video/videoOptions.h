@@ -200,6 +200,18 @@ public:
 	 */
 	Codec codec;
 
+
+	uint32_t wbmode;
+	uint32_t saturation;
+	const char* exposuretimerange;
+	const char* gainrange;
+	const char* ispdigitalgainrange;
+	uint32_t aeantibanding;
+	uint32_t exposurecompensation;
+	bool aelock;
+	bool awblock;
+
+
 	/**
 	 * Log the video settings, with an optional prefix label.
 	 */

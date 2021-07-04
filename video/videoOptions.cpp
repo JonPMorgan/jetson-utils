@@ -25,6 +25,15 @@
 #include "logging.h"
 #include <strings.h>
 
+#define WBMODE_DEFAULT					1
+#define	SATURATION_DEFAULT 			 	1
+#define	EXPOSURETIMERANGE_DEFAULT 		NULL 
+#define	GAINRANGE_DEFAULT 				NULL
+#define	ISPDIGITALGAINRANGE_DEFAULT 	NULL
+#define	AEANTIBANDING_DEFAULT 			1
+#define	EXPOSURECOMPENSATION_DEFAULT 	0
+#define	AELOCK_DEFAULT					false
+#define	AWBLOCK_DEFAULT					false
 
 // constructor
 videoOptions::videoOptions()
@@ -40,6 +49,15 @@ videoOptions::videoOptions()
 	deviceType  = DEVICE_DEFAULT;
 	flipMethod  = FLIP_DEFAULT;
 	codec       = CODEC_UNKNOWN;
+	wbmode 		= WBMODE_DEFAULT;
+	saturation 	= SATURATION_DEFAULT;
+	exposuretimerange = EXPOSURETIMERANGE_DEFAULT;
+	gainrange 	= GAINRANGE_DEFAULT;
+	ispdigitalgainrange = ISPDIGITALGAINRANGE_DEFAULT;
+	aeantibanding = AEANTIBANDING_DEFAULT;
+	exposurecompensation = EXPOSURECOMPENSATION_DEFAULT;
+	aelock		= AELOCK_DEFAULT;
+	awblock		= AWBLOCK_DEFAULT;
 }
 
 
@@ -158,6 +176,24 @@ bool videoOptions::Parse( const char* URI, const commandLine& cmdLine, videoOpti
 		
 		if( loop == -999 )
 			loop = cmdLine.GetInt("loop");
+	}
+
+	// wbmode
+	if( type == INPUT )
+	{
+		wbmode = cmdLine.GetInt("wbmode", WBMODE_DEFAULT);
+	}
+
+	// saturation
+	if( type == INPUT)
+	{
+		saturation = cmdLine.GetFloat("saturation", SATURATION_DEFAULT);
+	}
+
+	// exposuretimerange
+	if( type == INPUT) 
+	{
+		exposuretimerange = cmdLine.GetString("exposuretimerange", EXPOSURETIMERANGE_DEFAULT);
 	}
 	
 	return true;
