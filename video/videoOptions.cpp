@@ -26,14 +26,14 @@
 #include <strings.h>
 
 #define WBMODE_DEFAULT					1
-#define	SATURATION_DEFAULT 			 	1
+#define	SATURATION_DEFAULT 			 	"1.0"
 #define	EXPOSURETIMERANGE_DEFAULT 		NULL 
 #define	GAINRANGE_DEFAULT 				NULL
 #define	ISPDIGITALGAINRANGE_DEFAULT 	NULL
 #define	AEANTIBANDING_DEFAULT 			1
-#define	EXPOSURECOMPENSATION_DEFAULT 	0
-#define	AELOCK_DEFAULT					false
-#define	AWBLOCK_DEFAULT					false
+#define	EXPOSURECOMPENSATION_DEFAULT 	"0.0"
+#define	AELOCK_DEFAULT					0
+#define	AWBLOCK_DEFAULT					0
 
 // constructor
 videoOptions::videoOptions()
@@ -187,7 +187,7 @@ bool videoOptions::Parse( const char* URI, const commandLine& cmdLine, videoOpti
 	// saturation
 	if( type == INPUT)
 	{
-		saturation = cmdLine.GetFloat("saturation", SATURATION_DEFAULT);
+		saturation = cmdLine.GetString("saturation", SATURATION_DEFAULT);
 	}
 
 	// exposuretimerange
@@ -195,7 +195,43 @@ bool videoOptions::Parse( const char* URI, const commandLine& cmdLine, videoOpti
 	{
 		exposuretimerange = cmdLine.GetString("exposuretimerange", EXPOSURETIMERANGE_DEFAULT);
 	}
-	
+
+	// analog gain
+	if (type == INPUT)
+	{
+		gainrange = cmdLine.GetString("gainrange", GAINRANGE_DEFAULT);
+	}
+
+	// isp digital gain
+	if (type == INPUT)
+	{
+		ispdigitalgainrange = cmdLine.GetString("ispdigitalgainrange", ISPDIGITALGAINRANGE_DEFAULT);
+	}
+
+	// ae antibanding
+	if (type == INPUT)
+	{
+		aeantibanding = cmdLine.GetInt("aeantibanding", AEANTIBANDING_DEFAULT);
+	}
+
+	// exposurecompensation
+	if (type == INPUT)
+	{
+		exposurecompensation = cmdLine.GetString("exposurecompensation", EXPOSURECOMPENSATION_DEFAULT);
+	}
+
+	// ae lock
+	if (type == INPUT)
+	{
+		aelock = cmdLine.GetFlag("aelock", AELOCK_DEFAULT);
+	}
+
+	// awb lock
+	if (type == INPUT)
+	{
+		awblock = cmdLine.GetFlag("awblock", AWBLOCK_DEFAULT);
+	}
+
 	return true;
 }
 

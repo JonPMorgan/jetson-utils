@@ -202,14 +202,14 @@ public:
 
 
 	uint32_t wbmode;
-	uint32_t saturation;
+	const char* saturation;
 	const char* exposuretimerange;
 	const char* gainrange;
 	const char* ispdigitalgainrange;
 	uint32_t aeantibanding;
-	uint32_t exposurecompensation;
-	bool aelock;
-	bool awblock;
+	const char* exposurecompensation;
+	uint32_t aelock;
+	uint32_t awblock;
 
 
 	/**
