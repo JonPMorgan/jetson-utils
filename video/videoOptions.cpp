@@ -25,6 +25,15 @@
 #include "logging.h"
 #include <strings.h>
 
+#define WBMODE_DEFAULT					1
+#define	SATURATION_DEFAULT 			 	"1.0"
+#define	EXPOSURETIMERANGE_DEFAULT 		NULL 
+#define	GAINRANGE_DEFAULT 				NULL
+#define	ISPDIGITALGAINRANGE_DEFAULT 	NULL
+#define	AEANTIBANDING_DEFAULT 			1
+#define	EXPOSURECOMPENSATION_DEFAULT 	"0.0"
+#define	AELOCK_DEFAULT					0
+#define	AWBLOCK_DEFAULT					0
 
 // constructor
 videoOptions::videoOptions()
@@ -41,6 +50,15 @@ videoOptions::videoOptions()
 	deviceType  = DEVICE_DEFAULT;
 	flipMethod  = FLIP_DEFAULT;
 	codec       = CODEC_UNKNOWN;
+	wbmode 		= WBMODE_DEFAULT;
+	saturation 	= SATURATION_DEFAULT;
+	exposuretimerange = EXPOSURETIMERANGE_DEFAULT;
+	gainrange 	= GAINRANGE_DEFAULT;
+	ispdigitalgainrange = ISPDIGITALGAINRANGE_DEFAULT;
+	aeantibanding = AEANTIBANDING_DEFAULT;
+	exposurecompensation = EXPOSURECOMPENSATION_DEFAULT;
+	aelock		= AELOCK_DEFAULT;
+	awblock		= AWBLOCK_DEFAULT;
 }
 
 
@@ -160,6 +178,60 @@ bool videoOptions::Parse( const char* URI, const commandLine& cmdLine, videoOpti
 		
 		if( loop == -999 )
 			loop = cmdLine.GetInt("loop");
+	}
+
+		// wbmode
+	if( type == INPUT )
+	{
+		wbmode = cmdLine.GetInt("wbmode", WBMODE_DEFAULT);
+	}
+
+	// saturation
+	if( type == INPUT)
+	{
+		saturation = cmdLine.GetString("saturation", SATURATION_DEFAULT);
+	}
+
+	// exposuretimerange
+	if( type == INPUT) 
+	{
+		exposuretimerange = cmdLine.GetString("exposuretimerange", EXPOSURETIMERANGE_DEFAULT);
+	}
+
+	// analog gain
+	if (type == INPUT)
+	{
+		gainrange = cmdLine.GetString("gainrange", GAINRANGE_DEFAULT);
+	}
+
+	// isp digital gain
+	if (type == INPUT)
+	{
+		ispdigitalgainrange = cmdLine.GetString("ispdigitalgainrange", ISPDIGITALGAINRANGE_DEFAULT);
+	}
+
+	// ae antibanding
+	if (type == INPUT)
+	{
+		aeantibanding = cmdLine.GetInt("aeantibanding", AEANTIBANDING_DEFAULT);
+	}
+
+	// exposurecompensation
+	if (type == INPUT)
+	{
+		exposurecompensation = cmdLine.GetString("exposurecompensation", EXPOSURECOMPENSATION_DEFAULT);
+	}
+
+	// ae lock
+	if (type == INPUT)
+	{
+		aelock = cmdLine.GetFlag("aelock", AELOCK_DEFAULT);
+	}
+
+	// awb lock
+	if (type == INPUT)
+	{
+		awblock = cmdLine.GetFlag("awblock", AWBLOCK_DEFAULT);
 	}
 
 	// RTSP latency

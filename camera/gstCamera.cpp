@@ -141,7 +141,16 @@ bool gstCamera::buildLaunchStr()
 		else if( mOptions.flipMethod == videoOptions::FLIP_ROTATE_180 )
 			mOptions.flipMethod = videoOptions::FLIP_NONE;
 	
-		ss << "nvarguscamerasrc sensor-id=" << mOptions.resource.port << " ! video/x-raw(memory:NVMM), width=(int)" << GetWidth() << ", height=(int)" << GetHeight() << ", framerate=" << (int)mOptions.frameRate << "/1, format=(string)NV12 ! nvvidconv flip-method=" << mOptions.flipMethod << " ! ";
+		ss << "nvarguscamerasrc sensor-id=" << mOptions.resource.port  << " wbmode=" << mOptions.wbmode << " saturation=" << mOptions.saturation;
+		if (mOptions.exposuretimerange != NULL) 
+			ss << " exposuretimerange=" <<	mOptions.exposuretimerange;
+		if (mOptions.gainrange != NULL) 
+			ss << " gainrange=" << mOptions.gainrange;
+		if (mOptions.ispdigitalgainrange != NULL)
+			ss << " ispdigitalgainrange=" << mOptions.ispdigitalgainrange;
+		ss << " aeantibanding=" << mOptions.aeantibanding << " exposurecompensation=" << mOptions.exposurecompensation << " aelock=" << 
+			mOptions.aelock << " awblock=" << mOptions.awblock << " ! video/x-raw(memory:NVMM), width=(int)" << GetWidth() << 
+		   	", height=(int)" << GetHeight() << ", framerate=" << (int)mOptions.frameRate << "/1, format=(string)NV12 ! nvvidconv flip-method=" << mOptions.flipMethod <<  " ! ";
 	#else
 		// older JetPack versions use nvcamerasrc element instead of nvarguscamerasrc
 		ss << "nvcamerasrc fpsRange=\"" << (int)mOptions.frameRate << " " << (int)mOptions.frameRate << "\" ! video/x-raw(memory:NVMM), width=(int)" << GetWidth() << ", height=(int)" << GetHeight() << ", format=(string)NV12 ! nvvidconv flip-method=" << mOptions.flipMethod << " ! "; //'video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)I420, framerate=(fraction)30/1' ! ";
