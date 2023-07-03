@@ -380,6 +380,13 @@ bool gstEncoder::buildLaunchStr()
 
 		mOptions.deviceType = videoOptions::DEVICE_IP;
 	}
+	else if( uri.protocol == "rtmp" )
+	{
+		ss << "flvmux streamable=true ! queue ! rtmpsink location=";
+		ss << uri.string << " ";
+
+		mOptions.deviceType = videoOptions::DEVICE_IP;
+	}
 
 	mLaunchStr = ss.str();
 

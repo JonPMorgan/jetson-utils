@@ -44,6 +44,7 @@ videoOptions::videoOptions()
 	bitRate     = 0;
 	numBuffers  = 4;
 	loop        = 0;
+	rtspLatency = 2000;
 	zeroCopy    = true;
 	ioType      = INPUT;
 	deviceType  = DEVICE_DEFAULT;
@@ -85,6 +86,7 @@ void videoOptions::Print( const char* prefix ) const
 	LogInfo("  -- zeroCopy:   %s\n", zeroCopy ? "true" : "false");	
 	LogInfo("  -- flipMethod: %s\n", FlipMethodToStr(flipMethod));
 	LogInfo("  -- loop:       %i\n", loop);
+	LogInfo("  -- rtspLatency %i\n", rtspLatency);
 	
 	LogInfo("------------------------------------------------\n");
 }
@@ -178,6 +180,7 @@ bool videoOptions::Parse( const char* URI, const commandLine& cmdLine, videoOpti
 			loop = cmdLine.GetInt("loop");
 	}
 
+<<<<<<< HEAD
 	// wbmode
 	if( type == INPUT )
 	{
@@ -232,6 +235,11 @@ bool videoOptions::Parse( const char* URI, const commandLine& cmdLine, videoOpti
 		awblock = cmdLine.GetFlag("awblock", AWBLOCK_DEFAULT);
 	}
 
+=======
+	// RTSP latency
+	rtspLatency = cmdLine.GetUnsignedInt("input-rtsp-latency", rtspLatency);
+	
+>>>>>>> a44bbc7b2024a441c18f4abaddcf13dbb09f8ac3
 	return true;
 }
 
@@ -287,6 +295,7 @@ const char* videoOptions::IoTypeToStr( videoOptions::IoType type )
 		case INPUT:  return "input";
 		case OUTPUT: return "output";
 	}
+	return nullptr;
 }
 
 
@@ -320,6 +329,7 @@ const char* videoOptions::DeviceTypeToStr( videoOptions::DeviceType type )
 		case DEVICE_FILE:		return "file";
 		case DEVICE_DISPLAY:	return "display";
 	}
+	return nullptr;
 }
 
 
@@ -355,6 +365,7 @@ const char* videoOptions::FlipMethodToStr( videoOptions::FlipMethod flip )
 		case FLIP_VERTICAL:				return "vertical";
 		case FLIP_UPPER_LEFT_DIAGONAL:	return "upper-left-diagonal";
 	}
+	return nullptr;
 }
 
 
@@ -391,6 +402,7 @@ const char* videoOptions::CodecToStr( videoOptions::Codec codec )
 		case CODEC_MPEG4:	return "mpeg4";
 		case CODEC_MJPEG:	return "mjpeg";
 	}
+	return nullptr;
 }
 
 
